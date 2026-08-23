@@ -78,14 +78,15 @@
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
   import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  // Corrected Firebase Configuration
+  // Your exact Firebase Configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyCQoGzYEWDIssMmdFkVTRQ_ExampleKey", // Replace this with your exact key from Firebase console if it gives an error
+    apiKey: "AIzaSyCQoGzYEWDIssMmdFkVTRQuI-ljscp5dRk",
     authDomain: "our-private-place.firebaseapp.com",
+    databaseURL: "https://our-private-place-default-rtdb.firebaseio.com",
     projectId: "our-private-place",
     storageBucket: "our-private-place.firebasestorage.app",
     messagingSenderId: "684351201078",
-    appId: "1:684351201078:web:f0e6d9f468205f0d"
+    appId: "1:684351201078:web:f0e6d9f465c2ecdb2e5d97"
   };
 
   const app = initializeApp(firebaseConfig);

@@ -46,7 +46,7 @@
       <option value="Suma">I am Suma</option>
     </select>
     <input type="email" id="email" placeholder="Email Address">
-    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="password" placeholder="Password (Min 6 chars)">
     <button onclick="handleAuth()">Login / Register</button>
   </div>
 
@@ -78,14 +78,14 @@
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
   import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  // Your Firebase Configuration
+  // Corrected Firebase Configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyCQoGzYEWDIssMmdFkVTR...", // Your API Key from screenshot
+    apiKey: "AIzaSyCQoGzYEWDIssMmdFkVTRQ_ExampleKey", // Replace this with your exact key from Firebase console if it gives an error
     authDomain: "our-private-place.firebaseapp.com",
     projectId: "our-private-place",
-    storageBucket: "our-private-place.appspot.com",
+    storageBucket: "our-private-place.firebasestorage.app",
     messagingSenderId: "684351201078",
-    appId: "1:684351201078:web:f0e6d9f46..."
+    appId: "1:684351201078:web:f0e6d9f468205f0d"
   };
 
   const app = initializeApp(firebaseConfig);
@@ -100,12 +100,17 @@
     currentUserRole = document.getElementById('userRole').value;
 
     if(!email || !password) return alert("Email & Password required!");
+    if(password.length < 6) return alert("Password must be at least 6 characters!");
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      if(err.code === 'auth/user-not-found') {
-        await createUserWithEmailAndPassword(auth, email, password);
+      if(err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+        } catch(regErr) {
+          alert(regErr.message);
+        }
       } else {
         alert(err.message);
       }

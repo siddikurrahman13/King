@@ -1,87 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TactiVerse AI V1.1</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10162b" />
+  <title>StudyVerse — Study Like a Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-  <div class="brand">⚽ <div><h1>TactiVerse <span>AI</span></h1><p>Interactive Football Tactical Board</p></div></div>
-  <div class="header-actions">
-    <button id="saveBtn">💾 Save Squad</button>
-    <button id="loadBtn" class="secondary">📂 Load</button>
-  </div>
-</header>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="logo">✦</div><div><h1>StudyVerse</h1><p>Study like a game.</p></div></div>
+      <div class="level-pill"><span id="levelText">Level 1</span><div class="xp-bar"><i id="xpBar"></i></div><span id="xpText">0 / 100 XP</span></div>
+    </header>
 
-<main>
-  <section class="hero">
-    <div>
-      <p class="eyebrow">TACTICAL COMMAND CENTER • V1.1</p>
-      <h2>Build your team like a manager.</h2>
-      <p>Tap a player to edit details. Drag players anywhere on the pitch.</p>
-    </div>
-    <div class="top-controls">
-      <label>Team Name<input id="teamName" value="My Dream Team"></label>
-      <label>Formation
-        <select id="formation">
-          <option value="433">4-3-3</option>
-          <option value="4213">4-2-1-3</option>
-          <option value="4312">4-3-1-2</option>
-          <option value="442">4-4-2</option>
-        </select>
-      </label>
-      <button id="applyBtn">Apply Formation</button>
-    </div>
-  </section>
-
-  <section class="app-grid">
-    <div class="board-card">
-      <div class="card-head"><div><h3>⚽ Tactical Board</h3><small id="formationText">4-3-3 • 11 Players</small></div><span class="hint">Drag • Drop • Tap to edit</span></div>
-      <div id="pitch" class="pitch">
-        <div class="goal goal-top"></div><div class="goal goal-bottom"></div>
-        <div class="box box-top"></div><div class="box box-bottom"></div>
-        <div class="center-line"></div><div class="center-circle"></div>
-      </div>
-    </div>
-
-    <aside class="sidebar">
-      <div class="panel editor">
-        <h3>✏️ Player Editor</h3>
-        <p id="editorEmpty">Select a player from the pitch.</p>
-        <div id="editorFields" hidden>
-          <label>Name<input id="playerName" maxlength="16"></label>
-          <label>Position<input id="playerPosition" maxlength="6"></label>
-          <label>Rating <span id="ratingPreview">90</span><input id="playerRating" type="range" min="50" max="100"></label>
-          <button id="updatePlayer">Update Player</button>
+    <main>
+      <section class="hero card">
+        <div>
+          <p class="eyebrow">TODAY'S QUEST</p>
+          <h2 id="greeting">Ready to level up?</h2>
+          <p id="heroText">Complete a task or start a focus session to earn XP.</p>
         </div>
-      </div>
+        <div class="hero-stats">
+          <div><strong id="streak">0</strong><span>🔥 Day Streak</span></div>
+          <div><strong id="totalHours">0h</strong><span>⏱ Focused</span></div>
+          <div><strong id="completedCount">0</strong><span>✓ Tasks Done</span></div>
+        </div>
+      </section>
 
-      <div class="panel">
-        <h3>📊 Tactical Analysis</h3>
-        <div class="stat"><span>Attack</span><div class="bar"><i id="attackBar"></i></div><b id="attackValue"></b></div>
-        <div class="stat"><span>Midfield</span><div class="bar"><i id="midBar"></i></div><b id="midValue"></b></div>
-        <div class="stat"><span>Defense</span><div class="bar"><i id="defBar"></i></div><b id="defValue"></b></div>
-        <div class="stat"><span>Counter</span><div class="bar"><i id="counterBar"></i></div><b id="counterValue"></b></div>
-      </div>
+      <section class="grid two">
+        <article class="card timer-card">
+          <div class="section-title"><div><p class="eyebrow">FOCUS MODE</p><h3>Pomodoro Timer</h3></div><button class="icon-btn" id="resetTimer" title="Reset">↻</button></div>
+          <div class="timer-display" id="timerDisplay">25:00</div>
+          <div class="timer-controls"><button id="startTimer" class="primary">Start Focus</button><button id="pauseTimer">Pause</button></div>
+          <div class="preset-row"><button data-min="25" class="preset active">25m</button><button data-min="45" class="preset">45m</button><button data-min="60" class="preset">60m</button></div>
+          <p class="hint">Finishing a session earns <b>25 XP</b>.</p>
+        </article>
 
-      <div class="panel suggestion">
-        <h3>🧠 Smart Suggestion</h3>
-        <p id="suggestion"></p>
-      </div>
+        <article class="card countdown-card">
+          <p class="eyebrow">NEXT MILESTONE</p>
+          <h3>Exam Countdown</h3>
+          <div class="countdown" id="countdown">-- days</div>
+          <label>Exam date <input type="date" id="examDate"></label>
+          <p class="hint">Set your target date and keep moving forward.</p>
+        </article>
+      </section>
 
-      <div class="panel actions">
-        <h3>🔥 Quick Actions</h3>
-        <button id="randomizeBtn" class="secondary full">🎲 Randomize Player Ratings</button>
-        <button id="resetBtn" class="danger full">↺ Reset Everything</button>
-      </div>
-    </aside>
-  </section>
-</main>
+      <section class="grid two">
+        <article class="card">
+          <div class="section-title"><div><p class="eyebrow">DAILY QUESTS</p><h3>Today's Goals</h3></div><button class="small-btn" id="addTaskBtn">+ Add</button></div>
+          <div id="taskList" class="task-list"></div>
+          <form id="taskForm" class="task-form hidden"><input id="taskInput" maxlength="70" placeholder="e.g. Physics Chapter 2 numericals" required><button class="primary">Add Quest</button></form>
+        </article>
 
-<div id="toast"></div>
-<footer>TactiVerse AI V1.1 • Your squad. Your tactics. Your identity. ⚽</footer>
-<script src="script.js"></script>
+        <article class="card">
+          <p class="eyebrow">YOUR POWER</p><h3>Subject Progress</h3>
+          <div id="subjects" class="subjects"></div>
+          <form id="subjectForm" class="subject-form"><input id="subjectName" maxlength="30" placeholder="Add subject" required><button>+</button></form>
+        </article>
+      </section>
+
+      <section class="grid two">
+        <article class="card">
+          <p class="eyebrow">STUDY INTELLIGENCE</p><h3>Weakness Detector</h3>
+          <div id="weaknessList" class="weakness-list"></div>
+          <p class="hint">Set each subject's confidence level. StudyVerse will highlight your weak areas.</p>
+        </article>
+        <article class="card">
+          <p class="eyebrow">UNLOCKED</p><h3>Achievements</h3>
+          <div class="achievements" id="achievements"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
 </body>
 </html>

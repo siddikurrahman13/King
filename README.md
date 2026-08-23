@@ -1,17 +1,13 @@
-# TactiVerse AI V1 ⚽
+# TactiVerse AI V1.1 ⚽
 
-An interactive football tactical board built with HTML, CSS and JavaScript.
+## New in V1.1
+- Edit player name
+- Edit player position
+- Individual player ratings
+- Tactical analysis based on actual player ratings
+- Improved football pitch
+- Selected player highlighting
+- Save and load squads with LocalStorage
+- Randomize player ratings
 
-## Features
-- Multiple formations
-- Drag-and-drop player positioning
-- Tactical ratings
-- Smart suggestions
-- LocalStorage save system
-- Responsive premium UI
-
-## Run locally
-Open `index.html` in a browser.
-
-## GitHub Pages
-Upload all files to a GitHub repository, then enable Pages from the repository settings.
+Open `index.html` to run the project.

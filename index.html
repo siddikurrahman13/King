@@ -2,861 +2,1054 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#06152c">
-<meta name="description" content="A little light, sent just for you.">
-<title>Send This Little Light ♡</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --night: #041126;
-  --blue: #0a2341;
-  --gold: #ffd99a;
-  --soft-gold: #ffbd69;
-  --white: #f7f3ff;
-  --muted: #b5c5df;
-}
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: var(--white);
-  font-family: "DM Sans", sans-serif;
-  background:
-    radial-gradient(ellipse at 76% 23%, #253c68 0%, transparent 29%),
-    radial-gradient(ellipse at 15% 68%, #102d50 0%, transparent 38%),
-    linear-gradient(160deg, #020916, #071a35 58%, #030b19);
-  overflow-x: hidden;
-}
-
-button { font: inherit; }
-
-.sky, .ocean, .light-trail, .glow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-}
-
-.sky {
-  z-index: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 78% 34%, #e2a7b51a, transparent 18%),
-    radial-gradient(ellipse at 52% 53%, #ffb75a12, transparent 25%);
-}
-
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: #fff8dc;
-  border-radius: 50%;
-  opacity: .65;
-  animation: twinkle var(--duration, 3s) ease-in-out infinite alternate;
-}
-
-@keyframes twinkle {
-  from { opacity: .2; transform: scale(.7); }
-  to { opacity: 1; transform: scale(1.6); }
-}
-
-.moon {
-  position: absolute;
-  width: 67px;
-  height: 67px;
-  right: 13%;
-  top: 14%;
-  border-radius: 50%;
-  background: #fff4d5;
-  box-shadow: 0 0 25px #e9e5ff8c, 0 0 80px #9ab8ff3a;
-  opacity: .9;
-}
-
-.moon::after {
-  content: "";
-  position: absolute;
-  width: 63px;
-  height: 63px;
-  border-radius: 50%;
-  background: #182c4b;
-  top: -9px;
-  left: 16px;
-}
-
-.horizon-glow {
-  position: absolute;
-  top: 43%;
-  left: 43%;
-  width: 60%;
-  height: 22%;
-  background: radial-gradient(ellipse, #ffbd6950, #d77f4a13 35%, transparent 70%);
-  filter: blur(17px);
-}
-
-.ocean {
-  top: 46%;
-  background:
-    repeating-linear-gradient(
-      176deg,
-      transparent 0 14px,
-      #8bb8e509 15px 16px,
-      transparent 17px 29px
-    ),
-    linear-gradient(180deg, #071c37d9, #031126 85%);
-  border-top: 1px solid #a8c6ff16;
-  transform-origin: center top;
-}
-
-.ocean::before,
-.ocean::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    174deg,
-    transparent 0 30px,
-    #d3e5ff0b 31px 32px,
-    transparent 33px 53px
-  );
-  animation: waveMove 8s linear infinite;
-}
-
-.ocean::after {
-  opacity: .6;
-  animation-duration: 13s;
-  animation-direction: reverse;
-}
-
-@keyframes waveMove {
-  from { transform: translateX(-3%) translateY(0); }
-  to { transform: translateX(3%) translateY(10px); }
-}
-
-.light-trail {
-  inset: auto;
-  width: 2px;
-  height: 2px;
-  left: 0;
-  top: 0;
-  border-radius: 50%;
-  opacity: 0;
-  background: var(--gold);
-  box-shadow: 0 0 9px 4px #ffcb78, 0 0 28px 12px #ffb85b3d;
-  z-index: 2;
-}
-
-.glow {
-  background: radial-gradient(circle at 50% 75%, #ffbb5c00, transparent 50%);
-  z-index: 1;
-  transition: background 2s ease;
-}
-
-body.lit .glow {
-  background: radial-gradient(circle at 50% 70%, #ffbb5c20, transparent 62%);
-}
-
-header {
-  position: relative;
-  z-index: 5;
-  min-height: 80px;
-  padding: 23px 5.5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.brand {
-  font-family: "Playfair Display", serif;
-  font-size: 17px;
-  letter-spacing: .5px;
-}
-
-.brand-icon { color: var(--gold); margin-right: 8px; }
-
-.tagline {
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: #a8bddb;
-  text-align: right;
-}
-
-main {
-  position: relative;
-  z-index: 3;
-  width: min(1100px, 100%);
-  margin: 0 auto;
-  min-height: calc(100vh - 145px);
-  padding: 45px 7% 55px;
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  align-items: center;
-  gap: 20px;
-}
-
-.copy {
-  position: relative;
-  z-index: 4;
-  max-width: 440px;
-  padding-bottom: 25px;
-}
-
-.eyebrow {
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size: 10px;
-  font-weight: 600;
-}
-
-h1 {
-  font-family: "Dancing Script", cursive;
-  color: var(--gold);
-  font-size: clamp(48px, 6.4vw, 80px);
-  line-height: 1.1;
-  font-weight: 500;
-  margin: 23px 0;
-  text-shadow: 0 0 32px #ffcd7330;
-}
-
-h1 span {
-  display: block;
-  padding-left: 40px;
-}
-
-.intro {
-  font-size: 14px;
-  line-height: 2;
-  color: #c1cee0;
-  max-width: 340px;
-}
-
-.intro em {
-  color: #fff1d8;
-  font-style: normal;
-}
-
-.signature {
-  font-family: "Dancing Script", cursive;
-  color: #ffdaa2;
-  font-size: 22px;
-  margin-top: 23px;
-}
-
-.stage {
-  position: relative;
-  min-height: 430px;
-  display: grid;
-  place-items: center;
-  perspective: 800px;
-}
-
-.reflection {
-  position: absolute;
-  width: 75%;
-  height: 70px;
-  bottom: 78px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, #ffbd6960, #ffb65c17 40%, transparent 72%);
-  filter: blur(8px);
-  transition: transform 1s ease, opacity 1s ease;
-}
-
-.boat-button {
-  position: relative;
-  z-index: 4;
-  width: min(290px, 80%);
-  aspect-ratio: 1.15;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  filter: drop-shadow(0 8px 22px #ffbd6950);
-  animation: boatFloat 4s ease-in-out infinite;
-  transition: filter .5s ease;
-}
-
-.boat-button:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 10px;
-  border-radius: 18px;
-}
-
-.boat-button svg { width: 100%; overflow: visible; }
-
-.boat-glow {
-  animation: boatGlow 2.8s ease-in-out infinite alternate;
-}
-
-@keyframes boatFloat {
-  0%, 100% { transform: translateY(0) rotate(-1deg); }
-  50% { transform: translateY(-13px) rotate(1deg); }
-}
-
-@keyframes boatGlow {
-  from { opacity: .7; }
-  to { opacity: 1; }
-}
-
-.boat-hint {
-  position: absolute;
-  z-index: 4;
-  right: 0;
-  bottom: 68px;
-  font-family: "Dancing Script", cursive;
-  font-size: 21px;
-  color: #f5dfc7;
-  text-align: center;
-  transform: rotate(-5deg);
-  animation: hintPulse 2s ease-in-out infinite;
-}
-
-@keyframes hintPulse {
-  50% { opacity: .6; }
-}
-
-.boat-hint span {
-  display: block;
-  font-family: "DM Sans", sans-serif;
-  font-size: 11px;
-  margin-top: 5px;
-  color: #b7c9df;
-}
-
-.bottom-note {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 0 5.5% 28px;
-  color: #8ca7c9;
-  font-size: 11px;
-  letter-spacing: .4px;
-}
-
-.bottom-note p { line-height: 1.8; margin: 0; }
-
-.keep-btn, .primary-btn {
-  border: 1px solid #ffcf8d;
-  background: #07172b8c;
-  color: #fff0d5;
-  border-radius: 50px;
-  padding: 14px 23px;
-  cursor: pointer;
-  transition: background .3s, transform .3s, box-shadow .3s;
-  box-shadow: 0 0 25px #ffbd6910;
-}
-
-.keep-btn:hover, .primary-btn:hover {
-  background: #ffca8220;
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px #ffbd6925;
-}
-
-.keep-btn .heart { color: var(--gold); margin-right: 10px; font-size: 17px; }
-.keep-btn .arrow { margin-left: 13px; }
-
-/* Journey scene */
-.journey {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  display: grid;
-  place-items: center;
-  padding: 25px;
-  background: #020a16b8;
-  backdrop-filter: blur(7px);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .8s, visibility .8s;
-}
-
-.journey.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.journey-card {
-  width: min(440px, 100%);
-  text-align: center;
-  padding: 34px 26px;
-  border: 1px solid #ffdaa238;
-  border-radius: 24px;
-  background: linear-gradient(145deg, #10233bea, #071327f5);
-  box-shadow: 0 20px 100px #0008, 0 0 50px #ffbd6910;
-  transform: translateY(18px) scale(.98);
-  transition: transform .8s;
-}
-
-.journey.show .journey-card { transform: translateY(0) scale(1); }
-
-.mini-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--gold);
-}
-
-.journey h2 {
-  font-family: "Dancing Script", cursive;
-  font-size: clamp(34px, 9vw, 48px);
-  font-weight: 500;
-  color: var(--gold);
-  margin: 17px 0;
-}
-
-.journey-text {
-  color: #d1dced;
-  font-size: 14px;
-  line-height: 2;
-  white-space: pre-line;
-  margin: 18px 0 26px;
-}
-
-.journey-heart {
-  font-size: 30px;
-  animation: heartBeat 1.5s ease-in-out infinite;
-}
-
-@keyframes heartBeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.14); }
-}
-
-.journey .primary-btn { margin: 5px; }
-
-.secondary-btn {
-  color: #c0cde0;
-  background: transparent;
-  border: 1px solid #a9bedb40;
-  border-radius: 50px;
-  padding: 12px 19px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.particle {
-  position: fixed;
-  z-index: 8;
-  pointer-events: none;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 12px 3px #ffca73a8;
-  animation: particleFly var(--dur, 2s) ease-out forwards;
-}
-
-@keyframes particleFly {
-  from { opacity: 1; transform: translate(0, 0) scale(1); }
-  to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.1); }
-}
-
-.boat-button.sent {
-  animation: boatSail 2.5s cubic-bezier(.2,.7,.3,1) forwards;
-}
-
-@keyframes boatSail {
-  0% { transform: translate(0,0) scale(1) rotate(0); opacity: 1; }
-  60% { transform: translate(60px,-30px) scale(.8) rotate(8deg); opacity: .9; }
-  100% { transform: translate(180px,-110px) scale(.15) rotate(16deg); opacity: 0; }
-}
-
-body.lit .reflection {
-  transform: scale(1.7);
-  opacity: 1;
-}
-
-footer {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  color: #7188a9;
-  font-size: 10px;
-  padding: 0 15px 18px;
-  letter-spacing: 1px;
-}
-
-@media (min-width: 900px) and (min-height: 700px) {
-  main { min-height: calc(100vh - 140px); }
-}
-
-@media (max-width: 650px) {
-  header { min-height: 68px; padding: 19px 5%; }
-  .brand { font-size: 14px; }
-  .tagline { font-size: 10px; max-width: 110px; }
-  .moon { width: 43px; height: 43px; top: 12%; right: 12%; }
-  .moon::after { width: 42px; height: 42px; left: 12px; top: -6px; }
-  .ocean { top: 43%; }
-  main {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 0;
-    min-height: auto;
-    padding: 48px 7% 20px;
-  }
-  .copy { width: 100%; padding-bottom: 0; }
-  .eyebrow { font-size: 9px; letter-spacing: 2.5px; }
-  h1 { font-size: clamp(49px, 14vw, 68px); margin: 19px 0; }
-  h1 span { padding-left: 28px; }
-  .intro { font-size: 13px; line-height: 1.9; max-width: 310px; }
-  .signature { margin-top: 14px; font-size: 20px; }
-  .stage { min-height: 285px; width: 100%; margin-top: 4px; }
-  .boat-button { width: min(245px, 76%); }
-  .reflection { bottom: 38px; width: 80%; }
-  .boat-hint { right: 0; bottom: 27px; font-size: 17px; }
-  .boat-hint span { font-size: 10px; }
-  .bottom-note { padding: 0 6% 24px; align-items: flex-end; font-size: 10px; }
-  .keep-btn { padding: 12px 14px; font-size: 11px; white-space: nowrap; }
-  .keep-btn .heart { margin-right: 5px; }
-  .keep-btn .arrow { margin-left: 5px; }
-}
-
-@media (max-width: 360px) {
-  .bottom-note { flex-direction: column; align-items: flex-start; }
-  .keep-btn { align-self: flex-end; }
-  .stage { min-height: 260px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050611">
+  <meta name="description" content="A little heartbeat, made just for you.">
+  <title>A Heart That Learns Your Touch ♡</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@400;500;600&display=swap');
+
+    :root {
+      --bg: #050611;
+      --navy: #090d20;
+      --pink: #ff4f9a;
+      --hot-pink: #ff176f;
+      --soft-pink: #ffb2d1;
+      --purple: #a77bff;
+      --white: #fff6fc;
+      --muted: #a6a6c4;
+      --progress: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 50% 42%, #32132d55, transparent 39%),
+        radial-gradient(ellipse at 12% 15%, #17183c70, transparent 35%),
+        linear-gradient(155deg, #050611, #090d20 55%, #100719);
+      color: var(--white);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--soft-pink);
+      outline-offset: 5px;
+    }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ambient::before,
+    .ambient::after {
+      content: "";
+      position: absolute;
+      width: 55vw;
+      height: 55vw;
+      max-width: 480px;
+      max-height: 480px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .13;
+      background: var(--hot-pink);
+      animation: ambientFloat 12s ease-in-out infinite alternate;
+    }
+
+    .ambient::before {
+      top: 15%;
+      left: -20%;
+    }
+
+    .ambient::after {
+      right: -20%;
+      bottom: 0;
+      background: var(--purple);
+      animation-delay: -5s;
+    }
+
+    @keyframes ambientFloat {
+      to {
+        transform: translate(40px, -30px) scale(1.15);
+      }
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: .25;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      to {
+        opacity: .95;
+        transform: scale(1.8);
+      }
+    }
+
+    header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 22px clamp(18px, 5vw, 55px);
+    }
+
+    .brand {
+      font-family: "Playfair Display", serif;
+      font-size: 14px;
+      letter-spacing: .5px;
+    }
+
+    .brand span {
+      color: var(--pink);
+      margin-right: 7px;
+    }
+
+    .top-label {
+      color: #a8a8c8;
+      font-size: 10px;
+      letter-spacing: 1.6px;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(680px, 100%);
+      min-height: calc(100vh - 125px);
+      min-height: calc(100svh - 125px);
+      margin: 0 auto;
+      padding: 30px 22px 42px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: var(--soft-pink);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 12px;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-weight: 400;
+      font-size: clamp(29px, 7vw, 43px);
+      line-height: 1.25;
+      margin: 16px 0 10px;
+      letter-spacing: -.5px;
+    }
+
+    h1 em {
+      color: var(--soft-pink);
+      font-weight: 400;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .heart-stage {
+      position: relative;
+      width: min(100%, 390px);
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+      margin: 7px auto 0;
+      isolation: isolate;
+    }
+
+    .heart-stage::before {
+      content: "";
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      background: #f51a7430;
+      filter: blur(65px);
+      opacity: calc(.12 + var(--progress) * .7);
+      transition: opacity .7s;
+      pointer-events: none;
+    }
+
+    .heart-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .wave {
+      transform-box: fill-box;
+      transform-origin: center;
+      fill: none;
+      stroke: var(--pink);
+      stroke-width: 1.2;
+      opacity: 0;
+    }
+
+    .wave.pulse {
+      animation: waveOut 1.05s ease-out forwards;
+    }
+
+    @keyframes waveOut {
+      0% {
+        opacity: .65;
+        transform: scale(.32);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.2);
+      }
+    }
+
+    .heart-fill {
+      fill: url(#heartGradient);
+      opacity: calc(var(--progress) * .88);
+      filter: url(#heartGlow);
+      transition: opacity .65s ease;
+    }
+
+    .heart-outline {
+      fill: none;
+      stroke: url(#outlineGradient);
+      stroke-width: 2.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: calc(1000 - var(--progress) * 1000);
+      filter: url(#heartGlow);
+      transition: stroke-dashoffset .7s cubic-bezier(.2,.7,.25,1);
+    }
+
+    .heart-inner {
+      fill: none;
+      stroke: #ffbadb;
+      stroke-width: 1;
+      opacity: calc(var(--progress) * .5);
+      stroke-dasharray: 1000;
+      stroke-dashoffset: calc(1000 - var(--progress) * 1000);
+      transition: stroke-dashoffset .8s ease, opacity .7s;
+    }
+
+    .heart-core {
+      position: relative;
+      z-index: 2;
+      width: 78px;
+      height: 78px;
+      border: 1px solid #ff7eb447;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #160c24a6;
+      box-shadow: 0 0 32px #ff176f14, inset 0 0 25px #ff176f0a;
+      transition: background .7s, box-shadow .7s, transform .3s;
+    }
+
+    .core-icon {
+      font-size: 31px;
+      color: var(--soft-pink);
+      text-shadow: 0 0 20px #ff4f9a;
+      transition: transform .3s, color .3s;
+      user-select: none;
+    }
+
+    .heart-stage.beating .heart-core {
+      animation: coreBeat .72s ease-out;
+    }
+
+    @keyframes coreBeat {
+      0% { transform: scale(1); }
+      20% { transform: scale(1.16); }
+      42% { transform: scale(.97); }
+      62% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .heart-stage.complete .heart-core {
+      background: #ff34772a;
+      box-shadow: 0 0 45px #ff176f44, inset 0 0 24px #ff176f18;
+    }
+
+    .heart-stage.complete .core-icon {
+      color: #fff0f8;
+      text-shadow: 0 0 28px #ff4f9a;
+    }
+
+    .touch-target {
+      position: absolute;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .touch-target:disabled {
+      cursor: default;
+    }
+
+    .instruction {
+      color: #d1c5e4;
+      font-size: 13px;
+      margin: -8px 0 18px;
+      line-height: 1.8;
+      transition: opacity .3s;
+    }
+
+    .instruction strong {
+      color: var(--soft-pink);
+      font-weight: 500;
+    }
+
+    .progress-wrap {
+      width: min(260px, 78%);
+      margin: 0 auto;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+      color: #a5a4c2;
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      height: 3px;
+      width: 100%;
+      background: #ffffff12;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #a77bff, #ff4f9a, #ffc1dc);
+      box-shadow: 0 0 12px #ff4f9a;
+      border-radius: inherit;
+      transition: width .7s cubic-bezier(.2,.7,.25,1);
+    }
+
+    .finish-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 27px;
+      width: 100%;
+    }
+
+    .finish-btn, .replay-btn {
+      border: 1px solid #ff8cbb78;
+      background: linear-gradient(120deg, #ff367d21, #a77bff14);
+      color: #fff1f8;
+      padding: 13px 23px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background .3s, transform .3s, box-shadow .3s;
+      font-size: 12px;
+    }
+
+    .finish-btn:hover, .replay-btn:hover {
+      transform: translateY(-2px);
+      background: #ff367d2e;
+      box-shadow: 0 0 25px #ff367d18;
+    }
+
+    .finish-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .finish-btn[hidden], .replay-btn[hidden] {
+      display: none;
+    }
+
+    .tiny-note {
+      font-size: 10px;
+      color: #777996;
+      letter-spacing: .4px;
+    }
+
+    /* Final romantic message */
+    .ending {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: #03040de8;
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .8s, visibility .8s;
+    }
+
+    .ending.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .ending-card {
+      position: relative;
+      width: min(410px, 100%);
+      padding: 38px 27px 30px;
+      border: 1px solid #ff79ae40;
+      border-radius: 25px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 50% 0%, #ff398c16, transparent 55%),
+        linear-gradient(145deg, #111226, #090b19);
+      box-shadow: 0 25px 100px #0009, 0 0 65px #ff287d0b;
+      transform: translateY(20px) scale(.97);
+      transition: transform .8s cubic-bezier(.2,.7,.25,1);
+    }
+
+    .ending.show .ending-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .ending-heart {
+      font-size: 43px;
+      color: var(--pink);
+      text-shadow: 0 0 35px #ff398c78;
+      animation: endingBeat 1.7s ease-in-out infinite;
+    }
+
+    @keyframes endingBeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.12); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.08); }
+    }
+
+    .ending-label {
+      font-size: 9px;
+      color: var(--soft-pink);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-top: 16px;
+    }
+
+    .ending h2 {
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(34px, 9vw, 46px);
+      font-weight: 500;
+      color: #ffc3dc;
+      margin: 17px 0;
+    }
+
+    .ending-message {
+      white-space: pre-line;
+      color: #d4d2e6;
+      font-size: 13px;
+      line-height: 2;
+      margin: 0 0 24px;
+    }
+
+    .ending .replay-btn {
+      margin-top: 8px;
+    }
+
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 15px 20px;
+      color: #666b8b;
+      font-size: 9px;
+      letter-spacing: 1.6px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (min-width: 700px) {
+      main {
+        padding-top: 40px;
+      }
+
+      .heart-stage {
+        width: 360px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      header {
+        padding: 19px 17px;
+      }
+
+      .brand {
+        font-size: 12px;
+      }
+
+      .top-label {
+        font-size: 8px;
+        letter-spacing: 1px;
+      }
+
+      main {
+        padding: 29px 17px 35px;
+      }
+
+      h1 {
+        font-size: 31px;
+      }
+
+      .heart-stage {
+        width: min(100%, 350px);
+        margin-top: 8px;
+      }
+
+      .heart-core {
+        width: 68px;
+        height: 68px;
+      }
+
+      .core-icon {
+        font-size: 28px;
+      }
+
+      .instruction {
+        font-size: 12px;
+      }
+
+      .ending-card {
+        padding: 33px 21px 26px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div class="sky" id="sky">
-  <div class="moon"></div>
-  <div class="horizon-glow"></div>
-</div>
-<div class="ocean"></div>
-<div class="glow"></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="stars" id="stars" aria-hidden="true"></div>
 
-<header>
-  <div class="brand"><span class="brand-icon">♧</span> Send This Little Light</div>
-  <div class="tagline">A little light. A big feeling. &nbsp; ♡</div>
-</header>
+  <header>
+    <div class="brand"><span>♡</span> A Heart That Learns Your Touch</div>
+    <div class="top-label">A little feeling, just for you</div>
+  </header>
 
-<main>
-  <section class="copy">
-    <div class="eyebrow">A tiny gift, just for you</div>
-    <h1>A little light <span>for you... ♡</span></h1>
-    <p class="intro">
-      In this endless ocean of life,<br>
-      here's a little light I'm sending your way.<br>
-      <em>Tap the boat to set it free...</em>
+  <main>
+    <div class="eyebrow">An interactive little gift</div>
+
+    <h1>Every touch tells<br><em>a little story.</em></h1>
+
+    <p class="subtitle">
+      There is something beautiful about little moments.<br>
+      Let's make one, together. ♡
     </p>
-    <div class="signature">With a little warmth, always ♡</div>
-  </section>
 
-  <section class="stage" aria-label="Glowing paper boat">
-    <div class="reflection"></div>
-
-    <button class="boat-button" id="boatButton" aria-label="Send the little light">
-      <svg viewBox="0 0 320 250" role="img" aria-label="A glowing paper boat">
+    <section class="heart-stage" id="heartStage" aria-label="Interactive heart">
+      <svg class="heart-svg" viewBox="0 0 360 360" aria-hidden="true">
         <defs>
-          <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#fff4c8"/>
-            <stop offset="45%" stop-color="#ffd178"/>
-            <stop offset="100%" stop-color="#ff9b43"/>
+          <linearGradient id="heartGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffb5d6"/>
+            <stop offset="42%" stop-color="#ff438e"/>
+            <stop offset="100%" stop-color="#8f35f7"/>
           </linearGradient>
-          <linearGradient id="paperDark" x1="0" y1="0" x2="0.8" y2="1">
-            <stop offset="0%" stop-color="#ffc66c"/>
-            <stop offset="100%" stop-color="#d96e32"/>
+
+          <linearGradient id="outlineGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffb8d7"/>
+            <stop offset="50%" stop-color="#ff3c91"/>
+            <stop offset="100%" stop-color="#b58cff"/>
           </linearGradient>
-          <radialGradient id="boatLight">
-            <stop offset="0%" stop-color="#fff5c2" stop-opacity=".9"/>
-            <stop offset="100%" stop-color="#ffc76a" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="softGlow">
-            <feGaussianBlur stdDeviation="9"/>
+
+          <filter id="heartGlow" x="-70%" y="-70%" width="240%" height="240%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
           </filter>
         </defs>
 
-        <ellipse class="boat-glow" cx="160" cy="155" rx="125" ry="66"
-          fill="url(#boatLight)" filter="url(#softGlow)"/>
+        <circle class="wave" id="wave1" cx="180" cy="180" r="62"/>
+        <circle class="wave" id="wave2" cx="180" cy="180" r="82"/>
+        <circle class="wave" id="wave3" cx="180" cy="180" r="105"/>
 
-        <!-- Folded paper boat -->
-        <path d="M36 125 L115 144 L154 42 L193 143 L284 123 L229 188 L95 188 Z"
-          fill="url(#paperDark)" stroke="#ffe1a1" stroke-width="2"
-          stroke-linejoin="round"/>
+        <!-- Heart silhouette: its outline is drawn progressively -->
+        <path class="heart-fill"
+          d="M180 294
+             C161 275 68 216 68 139
+             C68 76 145 58 180 112
+             C215 58 292 76 292 139
+             C292 216 199 275 180 294 Z"/>
 
-        <path d="M115 144 L154 42 L164 153 L95 188 Z"
-          fill="url(#paper)" stroke="#fff0bd" stroke-width="1.5"
-          stroke-linejoin="round"/>
+        <path class="heart-outline"
+          d="M180 294
+             C161 275 68 216 68 139
+             C68 76 145 58 180 112
+             C215 58 292 76 292 139
+             C292 216 199 275 180 294 Z"/>
 
-        <path d="M154 42 L193 143 L164 153 Z"
-          fill="#fff0b3" stroke="#fff5d0" stroke-width="1.5"/>
-
-        <path d="M36 125 L164 153 L95 188 Z"
-          fill="#ffbd61" stroke="#ffe4ad" stroke-width="1.5"/>
-
-        <path d="M164 153 L284 123 L229 188 Z"
-          fill="url(#paperDark)" stroke="#ffdb9b" stroke-width="1.5"/>
-
-        <path d="M95 188 L164 153 L229 188 Z"
-          fill="#f28d3e" stroke="#ffe0a1" stroke-width="1.5"/>
-
-        <path d="M115 144 L164 153 L193 143"
-          fill="none" stroke="#fff6d8" stroke-opacity=".85" stroke-width="1.5"/>
-
-        <path d="M96 189 Q161 207 229 189"
-          fill="none" stroke="#ffd68b" stroke-width="2"
-          stroke-linecap="round"/>
-
-        <path d="M138 166 Q160 151 182 166"
-          fill="none" stroke="#fff2d0" stroke-opacity=".6"
-          stroke-width="1.2"/>
-
-        <text x="160" y="178" text-anchor="middle" font-size="24"
-          fill="#fff8e7" font-family="serif">♡</text>
-
-        <ellipse cx="160" cy="206" rx="85" ry="9"
-          fill="#ffb34f" opacity=".17"/>
+        <path class="heart-inner"
+          d="M180 274
+             C158 253 89 207 89 145
+             C89 98 144 84 180 130
+             C216 84 271 98 271 145
+             C271 207 202 253 180 274 Z"/>
       </svg>
-    </button>
 
-    <div class="boat-hint" id="boatHint">
-      Tap the boat
-      <span>to begin ♡</span>
+      <div class="heart-core" aria-hidden="true">
+        <span class="core-icon" id="coreIcon">✧</span>
+      </div>
+
+      <button
+        class="touch-target"
+        id="touchButton"
+        type="button"
+        aria-label="Touch to build the heart"
+        aria-describedby="instruction"
+      ></button>
+    </section>
+
+    <p class="instruction" id="instruction">
+      Touch the light to begin <strong>♡</strong><br>
+      <span>Each touch brings the heart a little closer.</span>
+    </p>
+
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="progressLabel">THE FIRST SPARK</span>
+        <span id="counter">0 / 12</span>
+      </div>
+
+      <div
+        class="progress-track"
+        id="progressTrack"
+        role="progressbar"
+        aria-label="Heart progress"
+        aria-valuemin="0"
+        aria-valuemax="12"
+        aria-valuenow="0"
+      >
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <div class="finish-area">
+      <button class="finish-btn" id="finishButton" type="button" disabled>
+        Let the heart speak ♡
+      </button>
+
+      <div class="tiny-note" id="tinyNote">
+        A little patience. A little love.
+      </div>
+
+      <button class="replay-btn" id="replayButton" type="button" hidden>
+        ↻ Feel it again
+      </button>
+    </div>
+
+    <p class="sr-only" id="liveStatus" aria-live="polite"></p>
+  </main>
+
+  <footer class="footer">A LITTLE MOMENT, MADE WITH LOVE ♡</footer>
+
+  <section
+    class="ending"
+    id="ending"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="endingTitle"
+    aria-describedby="endingMessage"
+    aria-hidden="true"
+  >
+    <div class="ending-card">
+      <div class="ending-heart" aria-hidden="true">♥</div>
+      <div class="ending-label">A tiny message for you</div>
+      <h2 id="endingTitle">You make it glow. ♡</h2>
+
+      <p class="ending-message" id="endingMessage"></p>
+
+      <button class="finish-btn" id="endingClose" type="button">
+        Keep this little feeling ♡
+      </button>
+
+      <br>
+
+      <button class="replay-btn" id="endingReplay" type="button">
+        ↻ Start again
+      </button>
     </div>
   </section>
-</main>
 
-<div class="bottom-note">
-  <p>✦ &nbsp; Small moments...<br>&nbsp;&nbsp;&nbsp;&nbsp; make the biggest journeys.</p>
-  <button class="keep-btn" id="keepButton">
-    <span class="heart">♡</span> Keep this light with you
-    <span class="arrow">→</span>
-  </button>
-</div>
+  <script>
+    /* ==========================================
+       PERSONALIZE HERE
+       Change these texts to make the gift yours.
+       ========================================== */
 
-<footer>MADE WITH A LITTLE LIGHT &nbsp; ♡</footer>
+    const CONFIG = {
+      totalTouches: 12,
 
-<section class="journey" id="journey" role="dialog"
-  aria-modal="true" aria-labelledby="journeyTitle">
-  <div class="journey-card">
-    <div class="mini-label" id="journeyLabel">A LITTLE MESSAGE FOR YOU</div>
-    <div class="journey-heart" id="journeyHeart">✧</div>
-    <h2 id="journeyTitle">A light, just for you</h2>
-    <p class="journey-text" id="journeyText"></p>
-    <button class="primary-btn" id="nextButton">Let the light travel →</button>
-    <br>
-    <button class="secondary-btn" id="closeButton">Stay here a little ♡</button>
-  </div>
-</section>
+      finalTitle: "You make it glow. ♡",
 
-<script>
-/* Personalize these messages whenever you want. */
-const messages = [
-  {
-    label: "A LITTLE REMINDER",
-    title: "You matter. ♡",
-    text: "In a world that never stops moving,\nI hope you always find a moment to breathe.\n\nYou don't have to be perfect.\nYou don't have to have everything figured out.\nJust being you is already something special."
-  },
-  {
-    label: "A LITTLE WISH",
-    title: "For your days ahead...",
-    text: "May the days ahead be a little kinder to you.\nMay the things that make you smile find you often.\n\nAnd on the difficult days,\nmay you remember that you deserve\nall the gentle things this world can offer."
-  },
-  {
-    label: "A LITTLE LIGHT",
-    title: "Keep this with you ♡",
-    text: "If life ever feels a little too heavy,\nthink of this tiny light floating on the sea.\n\nEven the smallest light can be seen\nin the darkest night.\n\nI hope this little gift reminds you of that."
-  }
-];
+      finalMessage:
+        "If this little heart could talk,\n" +
+        "it would probably say your name first. 🥹\n\n" +
+        "And if it could make one wish,\n" +
+        "it would be to see you smile a little more.\n\n" +
+        "So here's a tiny heart,\n" +
+        "with a tiny reminder:\n" +
+        "you are pretty special. 💗\n\n" +
+        "Sending you the softest little hug. ♡"
+    };
 
-const boatButton = document.getElementById("boatButton");
-const boatHint = document.getElementById("boatHint");
-const journey = document.getElementById("journey");
-const journeyLabel = document.getElementById("journeyLabel");
-const journeyTitle = document.getElementById("journeyTitle");
-const journeyText = document.getElementById("journeyText");
-const journeyHeart = document.getElementById("journeyHeart");
-const nextButton = document.getElementById("nextButton");
-const closeButton = document.getElementById("closeButton");
-const keepButton = document.getElementById("keepButton");
+    /* ==========================================
+       ELEMENTS
+       ========================================== */
 
-let started = false;
-let messageIndex = 0;
-let sailing = false;
+    const root = document.documentElement;
+    const stage = document.getElementById("heartStage");
+    const touchButton = document.getElementById("touchButton");
+    const instruction = document.getElementById("instruction");
+    const counter = document.getElementById("counter");
+    const progressBar = document.getElementById("progressBar");
+    const progressTrack = document.getElementById("progressTrack");
+    const progressLabel = document.getElementById("progressLabel");
+    const coreIcon = document.getElementById("coreIcon");
+    const finishButton = document.getElementById("finishButton");
+    const replayButton = document.getElementById("replayButton");
+    const tinyNote = document.getElementById("tinyNote");
+    const liveStatus = document.getElementById("liveStatus");
 
-function createStars() {
-  const sky = document.getElementById("sky");
-  const count = window.innerWidth < 600 ? 55 : 100;
+    const ending = document.getElementById("ending");
+    const endingTitle = document.getElementById("endingTitle");
+    const endingMessage = document.getElementById("endingMessage");
+    const endingClose = document.getElementById("endingClose");
+    const endingReplay = document.getElementById("endingReplay");
 
-  for (let i = 0; i < count; i++) {
-    const star = document.createElement("span");
-    star.className = "star";
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
-    star.style.setProperty("--duration", (2 + Math.random() * 4) + "s");
-    star.style.animationDelay = (Math.random() * 4) + "s";
-    sky.appendChild(star);
-  }
-}
+    const waves = [
+      document.getElementById("wave1"),
+      document.getElementById("wave2"),
+      document.getElementById("wave3")
+    ];
 
-function makeParticles(x, y, amount = 28) {
-  for (let i = 0; i < amount; i++) {
-    const p = document.createElement("span");
-    p.className = "particle";
+    /* ==========================================
+       STATE
+       ========================================== */
 
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 35 + Math.random() * 150;
-    const size = 2 + Math.random() * 4;
+    let touches = 0;
+    let complete = false;
+    let previousFocus = null;
+    let waveIndex = 0;
 
-    p.style.left = x + "px";
-    p.style.top = y + "px";
-    p.style.width = size + "px";
-    p.style.height = size + "px";
-    p.style.setProperty("--dx", Math.cos(angle) * distance + "px");
-    p.style.setProperty("--dy", Math.sin(angle) * distance + "px");
-    p.style.setProperty("--dur", (1.2 + Math.random() * 1.5) + "s");
+    /* ==========================================
+       BACKGROUND STARS
+       ========================================== */
 
-    document.body.appendChild(p);
-    p.addEventListener("animationend", () => p.remove(), { once: true });
-  }
-}
+    function createStars() {
+      const container = document.getElementById("stars");
+      const count = window.innerWidth < 600 ? 45 : 80;
 
-function burstAtBoat() {
-  const rect = boatButton.getBoundingClientRect();
-  makeParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 38);
-}
+      container.replaceChildren();
 
-function showJourney() {
-  journey.classList.add("show");
-  closeButton.focus();
-}
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("span");
 
-function hideJourney() {
-  journey.classList.remove("show");
-  if (started && messageIndex >= messages.length) {
-    boatHint.innerHTML = "Your light is out there <span>somewhere in the sea ♡</span>";
-  }
-}
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.setProperty(
+          "--duration",
+          (2 + Math.random() * 4) + "s"
+        );
+        star.style.animationDelay = Math.random() * 4 + "s";
 
-function launchBoat() {
-  if (sailing) return;
+        container.appendChild(star);
+      }
+    }
 
-  sailing = true;
-  started = true;
+    /* ==========================================
+       HEARTBEAT WAVE
+       ========================================== */
 
-  const rect = boatButton.getBoundingClientRect();
-  makeParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 45);
+    function emitWave() {
+      const wave = waves[waveIndex % waves.length];
+      waveIndex++;
 
-  boatButton.classList.add("sent");
-  boatHint.style.opacity = "0";
-  document.body.classList.add("lit");
+      // Restart this wave's animation.
+      wave.classList.remove("pulse");
+      void wave.getBoundingClientRect();
+      wave.classList.add("pulse");
+    }
 
-  setTimeout(() => {
-    showMessage(0);
-    sailing = false;
-  }, 1500);
-}
+    /* ==========================================
+       TOUCH / HEART PROGRESSION
+       ========================================== */
 
-function showMessage(index) {
-  messageIndex = index;
-  const message = messages[index];
+    function handleTouch() {
+      if (complete || touches >= CONFIG.totalTouches) return;
 
-  journeyLabel.textContent = message.label;
-  journeyTitle.textContent = message.title;
-  journeyText.textContent = message.text;
-  journeyHeart.textContent = index === 0 ? "♡" : index === 1 ? "✧" : "♥";
+      touches++;
 
-  nextButton.textContent =
-    index === messages.length - 1
-      ? "Keep this light with you ♡"
-      : "Let the light travel →";
+      const progress = touches / CONFIG.totalTouches;
 
-  showJourney();
-  burstAtBoat();
-}
+      root.style.setProperty("--progress", progress);
+      counter.textContent = touches + " / " + CONFIG.totalTouches;
+      progressBar.style.width = (progress * 100) + "%";
 
-function continueJourney() {
-  if (messageIndex < messages.length - 1) {
-    showMessage(messageIndex + 1);
-    return;
-  }
+      progressTrack.setAttribute("aria-valuenow", String(touches));
 
-  finishJourney();
-}
+      stage.classList.remove("beating");
+      void stage.offsetWidth;
+      stage.classList.add("beating");
 
-function finishJourney() {
-  hideJourney();
-  document.body.classList.add("lit");
+      emitWave();
 
-  const rect = keepButton.getBoundingClientRect();
-  makeParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 60);
+      if (touches === 1) {
+        progressLabel.textContent = "A LITTLE SPARK";
+        coreIcon.textContent = "♡";
+        instruction.innerHTML =
+          "A little warmth... <strong>♡</strong><br>" +
+          "<span>Keep going. Something beautiful is forming.</span>";
+      } else if (touches < 4) {
+        progressLabel.textContent = "FEEL THE PULSE";
+        coreIcon.textContent = "♡";
+        instruction.innerHTML =
+          "Can you feel it? <strong>💗</strong><br>" +
+          "<span>Every little touch makes it brighter.</span>";
+      } else if (touches < 7) {
+        progressLabel.textContent = "GROWING WARMTH";
+        coreIcon.textContent = "♥";
+        instruction.innerHTML =
+          "It's starting to take shape... <strong>✨</strong><br>" +
+          "<span>One more little moment at a time.</span>";
+      } else if (touches < 10) {
+        progressLabel.textContent = "ALMOST A HEART";
+        coreIcon.textContent = "♥";
+        instruction.innerHTML =
+          "Look how far we've come. <strong>🥹</strong><br>" +
+          "<span>Just a few more touches.</span>";
+      } else {
+        progressLabel.textContent = "A HEART, JUST FOR YOU";
+        coreIcon.textContent = "♥";
+        instruction.innerHTML =
+          "One last little touch... <strong>💖</strong><br>" +
+          "<span>Let's complete this little heart.</span>";
+      }
 
-  journeyLabel.textContent = "A LITTLE LIGHT, ALWAYS";
-  journeyHeart.textContent = "♥";
-  journeyTitle.textContent = "You can keep it. ♡";
-  journeyText.textContent =
-    "This little light is yours now.\n\nWhenever you need a gentle reminder,\ncome back to this tiny corner of the internet.\n\nSome gifts are small.\nThe feelings behind them don't have to be.";
+      liveStatus.textContent =
+        "Heart progress: " + touches + " of " + CONFIG.totalTouches;
 
-  nextButton.textContent = "Send the light again ↻";
-  showJourney();
-}
+      if (touches === CONFIG.totalTouches) {
+        completeHeart();
+      }
+    }
 
-function resetJourney() {
-  hideJourney();
+    function completeHeart() {
+      complete = true;
 
-  boatButton.classList.remove("sent");
-  boatButton.style.opacity = "1";
-  boatButton.style.transform = "";
-  boatHint.style.opacity = "1";
-  boatHint.innerHTML = "Tap the boat <span>to begin ♡</span>";
+      root.style.setProperty("--progress", "1");
+      stage.classList.add("complete");
+      coreIcon.textContent = "♥";
 
-  started = false;
-  sailing = false;
-  messageIndex = 0;
-  document.body.classList.remove("lit");
-}
+      progressLabel.textContent = "MADE WITH LOVE";
+      counter.textContent = CONFIG.totalTouches + " / " + CONFIG.totalTouches;
 
-boatButton.addEventListener("click", launchBoat);
-keepButton.addEventListener("click", () => {
-  if (!started) {
-    launchBoat();
-  } else {
-    finishJourney();
-  }
-});
+      progressBar.style.width = "100%";
+      progressTrack.setAttribute(
+        "aria-valuenow",
+        String(CONFIG.totalTouches)
+      );
 
-nextButton.addEventListener("click", () => {
-  if (nextButton.textContent.includes("again")) {
-    resetJourney();
-  } else {
-    continueJourney();
-  }
-});
+      instruction.innerHTML =
+        "A little heart, made with your touch. <strong>♥</strong><br>" +
+        "<span>Ready to hear what it has to say?</span>";
 
-closeButton.addEventListener("click", hideJourney);
+      tinyNote.textContent = "You made something beautiful. ♡";
+      finishButton.disabled = false;
+      finishButton.textContent = "Let the heart speak ♡";
+      replayButton.hidden = false;
+      touchButton.disabled = true;
 
-journey.addEventListener("click", (event) => {
-  if (event.target === journey) hideJourney();
-});
+      liveStatus.textContent =
+        "The heart is complete. You can reveal your message now.";
+    }
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") hideJourney();
-});
+    /* ==========================================
+       FINAL MESSAGE
+       ========================================== */
 
-createStars();
-</script>
+    function openEnding() {
+      if (!complete) return;
+
+      previousFocus = document.activeElement;
+
+      endingTitle.textContent = CONFIG.finalTitle;
+      endingMessage.textContent = CONFIG.finalMessage;
+
+      ending.classList.add("show");
+      ending.setAttribute("aria-hidden", "false");
+      endingClose.focus();
+    }
+
+    function closeEnding() {
+      ending.classList.remove("show");
+      ending.setAttribute("aria-hidden", "true");
+
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
+    }
+
+    /* ==========================================
+       REPLAY
+       ========================================== */
+
+    function resetExperience() {
+      touches = 0;
+      complete = false;
+      waveIndex = 0;
+
+      root.style.setProperty("--progress", "0");
+
+      stage.classList.remove("complete", "beating");
+
+      waves.forEach(wave => wave.classList.remove("pulse"));
+
+      coreIcon.textContent = "✧";
+      counter.textContent = "0 / " + CONFIG.totalTouches;
+
+      progressBar.style.width = "0%";
+      progressTrack.setAttribute("aria-valuenow", "0");
+
+      progressLabel.textContent = "THE FIRST SPARK";
+
+      instruction.innerHTML =
+        "Touch the light to begin <strong>♡</strong><br>" +
+        "<span>Each touch brings the heart a little closer.</span>";
+
+      tinyNote.textContent = "A little patience. A little love.";
+
+      finishButton.disabled = true;
+      finishButton.textContent = "Let the heart speak ♡";
+
+      replayButton.hidden = true;
+      touchButton.disabled = false;
+
+      closeEnding();
+
+      liveStatus.textContent = "The heart is ready for a new beginning.";
+      touchButton.focus();
+    }
+
+    /* ==========================================
+       EVENTS
+       ========================================== */
+
+    touchButton.addEventListener("click", handleTouch);
+
+    finishButton.addEventListener("click", openEnding);
+    endingClose.addEventListener("click", closeEnding);
+
+    replayButton.addEventListener("click", resetExperience);
+    endingReplay.addEventListener("click", resetExperience);
+
+    ending.addEventListener("click", function(event) {
+      if (event.target === ending) closeEnding();
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape" && ending.classList.contains("show")) {
+        closeEnding();
+      }
+
+      // Prevent keyboard focus from escaping the open dialog.
+      if (event.key === "Tab" && ending.classList.contains("show")) {
+        const focusable = ending.querySelectorAll("button:not(:disabled)");
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    createStars();
+  </script>
 </body>
 </html>

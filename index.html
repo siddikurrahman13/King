@@ -1,0 +1,973 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff0f5">
+<meta name="description" content="A tiny jar full of smiles, love and little surprises.">
+<title>A Jar Full of You ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #f48eae;
+  --deep: #bd527f;
+  --cream: #fff9f5;
+  --ink: #604553;
+  --muted: #a08091;
+  --glass: rgba(255,255,255,.55);
+}
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Nunito", "Hind Siliguri", sans-serif;
+  background:
+    radial-gradient(ellipse at 10% 5%, #ffe0ed 0%, transparent 40%),
+    radial-gradient(ellipse at 95% 45%, #e9ddff 0%, transparent 38%),
+    linear-gradient(155deg, #fff8f4, #fff0f6 48%, #f6efff);
+  overflow-x: hidden;
+}
+
+button { font: inherit; -webkit-tap-highlight-color: transparent; }
+
+button:focus-visible {
+  outline: 3px solid #bd527f;
+  outline-offset: 4px;
+}
+
+.bg-glow {
+  position: fixed;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  filter: blur(65px);
+  opacity: .28;
+  pointer-events: none;
+  z-index: -1;
+}
+.glow-one { background: #ff9fca; top: 10%; left: -130px; }
+.glow-two { background: #c2a8ff; right: -140px; bottom: 8%; }
+
+#sky {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.sparkle {
+  position: absolute;
+  bottom: -30px;
+  opacity: 0;
+  animation: floatUp linear forwards;
+  filter: drop-shadow(0 0 5px #f8a9ce);
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  12% { opacity: .8; }
+  85% { opacity: .6; }
+  100% { transform: translateY(-115vh) rotate(35deg); opacity: 0; }
+}
+
+main {
+  width: min(100% - 30px, 490px);
+  margin: auto;
+  padding: 38px 0 35px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 7px 13px;
+  border: 1px solid rgba(211, 128, 167, .22);
+  background: rgba(255,255,255,.5);
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--deep);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(34px, 9vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -1.8px;
+  margin: 17px 0 9px;
+  font-weight: 900;
+  background: linear-gradient(110deg, #bf5a86, #f092b5 52%, #9c83cf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  font-family: "Hind Siliguri", sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--muted);
+  margin: 0 auto;
+  max-width: 340px;
+}
+
+.jar-stage {
+  position: relative;
+  width: min(100%, 330px);
+  height: 325px;
+  margin: 9px auto 0;
+  display: grid;
+  place-items: center;
+}
+
+.halo {
+  position: absolute;
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  background: #ffb7d6;
+  opacity: .3;
+  filter: blur(35px);
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  50% { transform: scale(1.15); opacity: .48; }
+}
+
+.jar {
+  width: 185px;
+  height: 213px;
+  position: relative;
+  margin-top: 17px;
+  border-radius: 29px 29px 44px 44px;
+  border: 2px solid rgba(255,255,255,.95);
+  background: linear-gradient(105deg,
+    rgba(255,255,255,.75),
+    rgba(255,208,230,.24) 40%,
+    rgba(255,255,255,.65) 78%,
+    rgba(224,187,255,.32));
+  box-shadow:
+    inset 8px 0 15px rgba(255,255,255,.7),
+    inset -8px 0 15px rgba(255,165,205,.12),
+    0 22px 45px rgba(193,112,157,.16),
+    0 0 40px rgba(255,173,214,.22);
+  animation: jarFloat 4s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform .3s, box-shadow .3s;
+  z-index: 2;
+}
+
+.jar:hover {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: 0 25px 60px rgba(193,112,157,.25);
+}
+
+@keyframes jarFloat {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+.jar-neck {
+  position: absolute;
+  width: 112px;
+  height: 18px;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid rgba(255,255,255,.95);
+  background: linear-gradient(90deg,#f8c6dc,#fff1f7,#edb9d2);
+  border-radius: 7px;
+}
+
+.jar-lid {
+  position: absolute;
+  width: 126px;
+  height: 17px;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 7px;
+  background: linear-gradient(#e6a1c1,#c87da3);
+  border: 2px solid rgba(255,255,255,.8);
+  box-shadow: 0 4px 7px rgba(151,75,112,.14);
+}
+
+.jar-shine {
+  position: absolute;
+  left: 13px;
+  top: 22px;
+  width: 10px;
+  height: 108px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);
+  filter: blur(3px);
+}
+
+.jar-bottom-shine {
+  position: absolute;
+  bottom: 11px;
+  right: 18px;
+  width: 64px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.7);
+  filter: blur(3px);
+}
+
+.note {
+  position: absolute;
+  width: 36px;
+  height: 42px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  box-shadow: 0 3px 7px rgba(100,60,90,.09);
+  animation: noteDance 3s ease-in-out infinite;
+}
+
+.note:nth-child(1) { left: 22px; bottom: 43px; background:#ffe2a9; transform: rotate(-15deg); }
+.note:nth-child(2) { left: 67px; bottom: 35px; background:#ffcde0; animation-delay:-1s; }
+.note:nth-child(3) { right: 23px; bottom: 45px; background:#e5d8ff; transform: rotate(14deg); animation-delay:-2s; }
+.note:nth-child(4) { left: 37px; bottom: 94px; background:#d8f2df; transform: rotate(10deg); animation-delay:-.6s; }
+.note:nth-child(5) { right: 38px; bottom: 95px; background:#fff0c9; transform: rotate(-9deg); animation-delay:-1.5s; }
+.note:nth-child(6) { left: 75px; bottom: 110px; background:#f9d5e9; animation-delay:-.8s; }
+.note:nth-child(7) { right: 60px; bottom: 43px; background:#d8e8ff; animation-delay:-2.3s; }
+
+@keyframes noteDance {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+
+.jar-heart {
+  position: absolute;
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 35px;
+  filter: drop-shadow(0 2px 9px #ff9ec9);
+  animation: heartBeat 1.6s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%,100% { scale: 1; }
+  15% { scale: 1.16; }
+  30% { scale: 1; }
+  45% { scale: 1.1; }
+}
+
+.jar-label {
+  position: absolute;
+  z-index: 3;
+  top: 113px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 117px;
+  padding: 8px 4px 7px;
+  background: rgba(255,250,248,.93);
+  border: 1px solid rgba(229,160,193,.55);
+  border-radius: 8px;
+  box-shadow: 0 4px 13px rgba(125,65,95,.1);
+  font-size: 12px;
+  font-weight: 900;
+  color: #b95583;
+  line-height: 1.45;
+}
+
+.jar-label small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: #c78ba9;
+}
+
+.jar-caption {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  color: #b28b9f;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  animation: captionPulse 2s infinite;
+}
+
+@keyframes captionPulse {
+  50% { opacity: .55; }
+}
+
+.intro-card {
+  padding: 20px 19px;
+  background: rgba(255,255,255,.48);
+  border: 1px solid rgba(255,255,255,.92);
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(150,91,128,.07);
+  backdrop-filter: blur(12px);
+  margin: 4px 0 25px;
+}
+
+.intro-card h2 {
+  font-size: 19px;
+  margin: 0 0 7px;
+  color: #a9537e;
+  font-weight: 900;
+}
+
+.intro-card p {
+  font-family: "Hind Siliguri", sans-serif;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #977b8b;
+  margin: 0;
+}
+
+.section-heading {
+  margin: 28px 0 15px;
+  font-size: 20px;
+  font-weight: 900;
+  color: #a9537e;
+}
+
+.section-sub {
+  font-family: "Hind Siliguri", sans-serif;
+  color: var(--muted);
+  font-size: 13px;
+  margin: -7px 0 17px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  text-align: left;
+}
+
+.category {
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 18px;
+  padding: 16px 13px;
+  text-align: left;
+  color: var(--ink);
+  background: rgba(255,255,255,.56);
+  box-shadow: 0 6px 18px rgba(160,91,130,.055);
+  cursor: pointer;
+  transition: transform .2s, background .2s, box-shadow .2s;
+  min-height: 119px;
+}
+
+.category:hover, .category:active {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 10px 25px rgba(160,91,130,.12);
+}
+
+.category .emoji {
+  font-size: 25px;
+  display: block;
+  margin-bottom: 9px;
+}
+
+.category strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.category small {
+  font-family: "Hind Siliguri", sans-serif;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.all-btn {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 15px;
+  padding: 14px;
+  margin-top: 12px;
+  background: linear-gradient(110deg, #e99cbd, #c5a9ee);
+  color: white;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 7px 18px rgba(194,133,185,.19);
+  transition: transform .2s;
+}
+
+.all-btn:active { transform: scale(.98); }
+
+footer {
+  margin-top: 32px;
+  padding: 21px 5px 4px;
+  border-top: 1px solid rgba(202,151,179,.2);
+  font-size: 12px;
+  line-height: 2;
+  color: #b18da1;
+}
+
+footer .footer-heart {
+  color: #e982ac;
+  font-size: 16px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  padding: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(67,38,61,.36);
+  backdrop-filter: blur(9px);
+  z-index: 20;
+}
+
+.modal.open {
+  display: flex;
+  animation: fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  position: relative;
+  width: min(100%, 360px);
+  padding: 31px 23px 25px;
+  border: 1px solid rgba(255,255,255,.98);
+  border-radius: 25px;
+  background: linear-gradient(145deg,#fffaf8,#fff0f7 65%,#f5efff);
+  box-shadow: 0 25px 90px rgba(67,38,61,.22);
+  text-align: center;
+  animation: popIn .35s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes popIn {
+  from { transform: translateY(16px) scale(.92); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.close-btn {
+  position: absolute;
+  top: 11px;
+  right: 12px;
+  width: 33px;
+  height: 33px;
+  border: 0;
+  border-radius: 50%;
+  background: #f8e1ed;
+  color: #a9537e;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.modal-emoji {
+  font-size: 43px;
+  display: block;
+  margin: 5px 0 12px;
+  animation: heartBeat 2s infinite;
+}
+
+.modal-card h2 {
+  font-size: 22px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  color: #ad5983;
+  font-weight: 900;
+}
+
+.modal-card p {
+  font-family: "Hind Siliguri", sans-serif;
+  font-size: 15px;
+  line-height: 2;
+  color: #826576;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.note-counter {
+  margin-top: 20px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #c393ad;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 19px;
+}
+
+.modal-actions button {
+  flex: 1;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 7px;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(120deg,#e99cbd,#c5a9ee);
+}
+
+.modal-actions .secondary {
+  background: #f5e4ed;
+  color: #a9537e;
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 12px 17px;
+  background: #fffafc;
+  color: #a9537e;
+  border: 1px solid #f5d4e4;
+  box-shadow: 0 8px 30px rgba(105,59,86,.13);
+  border-radius: 40px;
+  font-size: 12px;
+  font-weight: 800;
+  transition: .3s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.confetti {
+  position: fixed;
+  top: -20px;
+  z-index: 40;
+  pointer-events: none;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  to { transform: translateY(110vh) rotate(700deg); opacity: 0; }
+}
+
+@media (max-width: 360px) {
+  main { width: calc(100% - 22px); padding-top: 28px; }
+  .jar-stage { transform: scale(.94); margin-top: 0; margin-bottom: -10px; }
+  .category { padding: 13px 10px; }
+  .modal-card { padding: 28px 17px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="bg-glow glow-one"></div>
+<div class="bg-glow glow-two"></div>
+<div id="sky" aria-hidden="true"></div>
+
+<main>
+  <div class="eyebrow">A LITTLE GIFT FOR YOU ♡</div>
+
+  <h1>A Jar Full<br>of You ♡</h1>
+
+  <p class="subtitle">
+    তোমার জন্য ছোট্ট একটা জগৎ,<br>
+    যেখানে জমে আছে অনেকগুলো হাসি। 🌷
+  </p>
+
+  <section class="jar-stage" aria-label="A magical jar full of notes">
+    <div class="halo"></div>
+
+    <div class="jar" id="mainJar" role="button"
+         tabindex="0" aria-label="Open a surprise note">
+      <div class="jar-neck"></div>
+      <div class="jar-lid"></div>
+      <div class="jar-shine"></div>
+
+      <div class="note">♡</div>
+      <div class="note">✿</div>
+      <div class="note">♥</div>
+      <div class="note">✧</div>
+      <div class="note">♡</div>
+      <div class="note">✿</div>
+      <div class="note">♥</div>
+
+      <div class="jar-heart">💗</div>
+
+      <div class="jar-label">
+        A LITTLE
+        <br>LOVE INSIDE
+        <small>MADE JUST FOR YOU</small>
+      </div>
+
+      <div class="jar-bottom-shine"></div>
+    </div>
+
+    <div class="jar-caption">✧ tap the jar for a little surprise ✧</div>
+  </section>
+
+  <section class="intro-card">
+    <h2>Hey, you! 🌸</h2>
+    <p>
+      জানো, কিছু মানুষ আছে যারা নিজের অজান্তেই
+      অন্য কারও দিনটা সুন্দর করে দেয়।
+      <br>
+      <strong>তুমি ঠিক তেমন একজন। ♡</strong>
+      <br>
+      তাই তোমার জন্য এই ছোট্ট জারটা—
+      একটু হাসি, একটু আদর আর অনেকগুলো মিষ্টি কথা।
+    </p>
+  </section>
+
+  <section>
+    <h2 class="section-heading">Pick a little feeling 💌</h2>
+    <p class="section-sub">আজ তোমার কোন অনুভূতিটা দরকার?</p>
+
+    <div class="categories">
+      <button class="category" data-category="sad">
+        <span class="emoji">🧸</span>
+        <strong>মন খারাপ হলে</strong>
+        <small>একটু আদর আর comfort</small>
+      </button>
+
+      <button class="category" data-category="smile">
+        <span class="emoji">🌷</span>
+        <strong>একটু হাসো</strong>
+        <small>একটু মিষ্টি, একটু দুষ্টুমি</small>
+      </button>
+
+      <button class="category" data-category="miss">
+        <span class="emoji">🌙</span>
+        <strong>আমাকে মিস করলে</strong>
+        <small>কিছু নরম নরম কথা</small>
+      </button>
+
+      <button class="category" data-category="special">
+        <span class="emoji">💗</span>
+        <strong>তুমি স্পেশাল</strong>
+        <small>কেন তুমি এত আপন</small>
+      </button>
+    </div>
+
+    <button class="all-btn" id="randomBtn">
+      🎁 Surprise Me!
+    </button>
+  </section>
+
+  <footer>
+    <span class="footer-heart">♡</span>
+    <br>
+    A tiny jar, filled with little feelings.
+    <br>
+    <span>Made with love, just for you. ✧</span>
+  </footer>
+</main>
+
+<div class="modal" id="noteModal" role="dialog"
+     aria-modal="true" aria-labelledby="noteTitle">
+  <div class="modal-card">
+    <button class="close-btn" id="closeModal" aria-label="Close">×</button>
+
+    <span class="modal-emoji" id="noteEmoji">💗</span>
+    <h2 id="noteTitle">A little note for you</h2>
+    <p id="noteText"></p>
+    <div class="note-counter" id="noteCounter">A LITTLE REMINDER ♡</div>
+
+    <div class="modal-actions">
+      <button id="anotherBtn">আরেকটা খুলি ✨</button>
+      <button class="secondary" id="closeBottomBtn">আহা, মিষ্টি! ♡</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ======================================
+   PERSONALIZE YOUR WEBSITE HERE
+   ====================================== */
+
+// চাইলে এখানে প্রিয় মানুষটার নাম লিখবে।
+const PERSON_NAME = "";
+
+// নিজের নাম লিখতে চাইলে এখানে লিখবে।
+const YOUR_NAME = "";
+
+/* ======================================
+   NOTE COLLECTION
+   নিজের মতো করে বার্তাগুলো পরিবর্তন করতে পারবে।
+   ====================================== */
+
+const notes = {
+  sad: [
+    {
+      emoji: "🧸",
+      title: "একটু কাছে এসো ♡",
+      text: "আজ মন খারাপ? 🥺\n\nতাহলে একটু থামো। সবকিছু আজই ঠিক করতে হবে না। একটু পানি খাও, গভীর শ্বাস নাও, আর নিজেকে একটু সময় দাও।\n\nতোমার সব দিন একরকম সুন্দর হবে না, কিন্তু খারাপ একটা দিন মানেই খারাপ একটা জীবন নয়। তুমি ভালো থাকার যোগ্য। 💗"
+    },
+    {
+      emoji: "🌷",
+      title: "একটা ছোট্ট কথা",
+      text: "নিজের ওপর এত চাপ দিও না, প্লিজ।\n\nসবসময় শক্ত থাকতে হবে না, সবসময় হাসতেও হবে না। কখনো কখনো চুপচাপ থাকাটাও ঠিক আছে।\n\nনিজের প্রতি একটু নরম হও, ঠিক যেভাবে তুমি অন্যদের প্রতি হও। 🫶"
+    },
+    {
+      emoji: "☁️",
+      title: "এই মেঘও কেটে যাবে",
+      text: "শোনো, আকাশে মেঘ জমলেই কিন্তু আকাশ তার সৌন্দর্য হারায় না।\n\nতুমিও তেমন। তোমার মন খারাপের দিনগুলো তোমার সুন্দর দিকগুলোকে একটুও কমিয়ে দেয় না।\n\nএকটু সময় নাও, ছোট্ট করে হাসো। সবকিছু একদিনে ঠিক না হলেও ধীরে ধীরে ভালো লাগতে পারে। 🌈"
+    }
+  ],
+
+  smile: [
+    {
+      emoji: "🐣",
+      title: "একটা জরুরি ঘোষণা!",
+      text: "এই যে ম্যাডাম/মিস্টার! 👀\n\nআপনাকে অবিলম্বে হাসতে বলা হচ্ছে। কারণ আপনার মুখ গোমড়া করে রাখার ফলে পৃথিবীর অন্তত ০.০০১% সৌন্দর্য কমে যাচ্ছে! 😭😂\n\nআচ্ছা আচ্ছা, মজা করলাম। তবে হাসলে আপনাকে নিশ্চয়ই খুব মিষ্টি লাগে! ♡"
+    },
+    {
+      emoji: "🐼",
+      title: "একটা হিসাব করি!",
+      text: "তুমি + তোমার হাসি = অনেক মিষ্টি। 🌷\n\nতুমি + তোমার রাগ = একটু ভয়, একটু মায়া। 😭\n\nতুমি + তোমার জেদ = উফফ, কী যে বলব!\n\nআর তুমি + তুমি = একদম নিজের মতো সুন্দর একটা মানুষ। ব্যস, অঙ্ক শেষ! 😂💗"
+    },
+    {
+      emoji: "🍓",
+      title: "ছোট্ট একটা রহস্য",
+      text: "জানো, আজ একটা সমস্যা হয়েছে।\n\nতোমার কথা মনে পড়তেই মুখে হাসি চলে এসেছে। এখন এই হাসির দায় কে নেবে? 🤨😂\n\nসন্দেহভাজন একজনই—তুমি! আর হ্যাঁ, শাস্তি হিসেবে তোমাকে একটা সুন্দর হাসি দিতে হবে। ♡"
+    }
+  ],
+
+  miss: [
+    {
+      emoji: "🌙",
+      title: "যদি কখনো মনে পড়ে...",
+      text: "যদি কখনো আমার কথা মনে পড়ে, তাহলে এই ছোট্ট জারটা খুলে নিও।\n\nহয়তো স্ক্রিনের ওপাশে আমি থাকব না, কিন্তু তোমার জন্য রেখে যাওয়া এই কথাগুলো তো থাকবে।\n\nএকটু হাসবে, ঠিক আছে? তোমার হাসিটা খুব সুন্দর একটা ব্যাপার। 💗"
+    },
+    {
+      emoji: "✨",
+      title: "একই আকাশের নিচে",
+      text: "পৃথিবীর কত জায়গায় কত মানুষ, কত গল্প, কত ব্যস্ততা...\n\nতারপরও কোনো এক সাধারণ মুহূর্তে একজন মানুষের কথা মনে পড়ে যায়। কোনো বিশেষ কারণ ছাড়াই।\n\nকিছু মানুষ হয়তো ঠিক এভাবেই আমাদের দিনগুলোর ছোট্ট একটা অংশ হয়ে যায়। ♡"
+    },
+    {
+      emoji: "💌",
+      title: "একটা ছোট্ট reminder",
+      text: "এই জারটা শুধু একটা ওয়েবসাইট নয়। এটা তোমাকে মনে করিয়ে দেওয়ার একটা ছোট্ট অজুহাত—\n\nতুমি কারও গল্পে সুন্দর একটা অধ্যায় হতে পারো, কারও দিনের ছোট্ট একটা হাসি হতে পারো।\n\nআর কখনো মন চাইলে, এই কথাগুলো আবার পড়ে নিও। 🌷"
+    }
+  ],
+
+  special: [
+    {
+      emoji: "👑",
+      title: "আজকের VIP!",
+      text: "অভিনন্দন! 🥳\n\nআজকের দিনের সবচেয়ে স্পেশাল মানুষ হিসেবে তোমাকে নির্বাচিত করা হয়েছে।\n\nনির্বাচনের কারণ:\n♡ তোমার নিজস্ব একটা সুন্দর ব্যক্তিত্ব আছে।\n♡ তোমার হাসি তোমারই মতো আলাদা।\n♡ তুমি তুমি বলেই স্পেশাল।\n\nপুরস্কার: নিজের জন্য একটু ভালোবাসা আর একটা বড় হাসি! 🏆💗"
+    },
+    {
+      emoji: "🌼",
+      title: "তোমার মতোই",
+      text: "সব ফুলের সৌন্দর্য একরকম নয়। কোনোটা তার রঙে, কোনোটা তার গন্ধে, কোনোটা তার সরলতায় সুন্দর।\n\nমানুষও তেমন। সবাইকে একরকম হতে হয় না, সবার মতো হতে হয় না।\n\nনিজের মতো থাকো। তোমার আলাদা হওয়াটাও তোমার সৌন্দর্যের একটা অংশ। 🌼"
+    },
+    {
+      emoji: "💖",
+      title: "তোমাকে একটা কথা বলি?",
+      text: "এই যে তুমি, হ্যাঁ তুমি! 🥹\n\nসবসময় নিজেকে নিখুঁত করার চেষ্টা করতে হবে না। তোমার ছোট্ট ভুল, তোমার অদ্ভুত অভ্যাস, তোমার হাসি, তোমার রাগ—সব মিলিয়েই তো তুমি।\n\nনিজেকে একটু বেশি ভালোবাসবে, কেমন? পৃথিবীতে তোমারও একটা সুন্দর জায়গা আছে। ♡"
+    }
+  ]
+};
+
+const allNotes = Object.values(notes).flat();
+
+let lastNote = null;
+let activeCategory = "all";
+let openedCount = 0;
+
+const modal = document.getElementById("noteModal");
+const noteEmoji = document.getElementById("noteEmoji");
+const noteTitle = document.getElementById("noteTitle");
+const noteText = document.getElementById("noteText");
+const noteCounter = document.getElementById("noteCounter");
+const toast = document.getElementById("toast");
+
+function chooseNote(category = "all") {
+  const pool = category === "all"
+    ? allNotes
+    : (notes[category] || allNotes);
+
+  let available = pool.filter(note => note !== lastNote);
+
+  if (available.length === 0) {
+    available = pool;
+  }
+
+  const selected = available[
+    Math.floor(Math.random() * available.length)
+  ];
+
+  lastNote = selected;
+  activeCategory = category;
+  return selected;
+}
+
+function openNote(category = "all") {
+  const note = chooseNote(category);
+
+  noteEmoji.textContent = note.emoji;
+  noteTitle.textContent = note.title;
+  noteText.textContent = note.text;
+
+  openedCount++;
+  noteCounter.textContent =
+    "LITTLE NOTE NO. " +
+    String(openedCount).padStart(2, "0") +
+    "  ♡";
+
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  burstHearts();
+  document.getElementById("closeModal").focus();
+}
+
+function closeNote() {
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("mainJar").addEventListener("click", () => {
+  openNote("all");
+});
+
+document.getElementById("mainJar").addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openNote("all");
+  }
+});
+
+document.querySelectorAll(".category").forEach(button => {
+  button.addEventListener("click", () => {
+    openNote(button.dataset.category);
+  });
+});
+
+document.getElementById("randomBtn").addEventListener("click", () => {
+  openNote("all");
+});
+
+document.getElementById("anotherBtn").addEventListener("click", () => {
+  openNote(activeCategory);
+});
+
+document.getElementById("closeModal").addEventListener("click", closeNote);
+document.getElementById("closeBottomBtn").addEventListener("click", closeNote);
+
+modal.addEventListener("click", event => {
+  if (event.target === modal) closeNote();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && modal.classList.contains("open")) {
+    closeNote();
+  }
+});
+
+/* Floating sparkles */
+
+const sky = document.getElementById("sky");
+const sparkles = ["♡", "✧", "✦", "·", "♥"];
+
+function createSparkle() {
+  const el = document.createElement("span");
+  el.className = "sparkle";
+  el.textContent = sparkles[
+    Math.floor(Math.random() * sparkles.length)
+  ];
+
+  el.style.left = Math.random() * 100 + "%";
+  el.style.fontSize = (10 + Math.random() * 13) + "px";
+  el.style.animationDuration = (9 + Math.random() * 9) + "s";
+
+  sky.appendChild(el);
+
+  setTimeout(() => el.remove(), 19000);
+}
+
+for (let i = 0; i < 14; i++) {
+  setTimeout(createSparkle, i * 350);
+}
+
+setInterval(createSparkle, 950);
+
+/* Little heart burst */
+
+function burstHearts() {
+  const symbols = ["💗", "💕", "♡", "✨", "🌸"];
+
+  for (let i = 0; i < 13; i++) {
+    const el = document.createElement("span");
+    el.className = "confetti";
+    el.textContent = symbols[
+      Math.floor(Math.random() * symbols.length)
+    ];
+
+    el.style.left = (5 + Math.random() * 90) + "%";
+    el.style.fontSize = (13 + Math.random() * 12) + "px";
+    el.style.animationDuration = (2.2 + Math.random() * 2) + "s";
+    el.style.animationDelay = (Math.random() * .4) + "s";
+
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5000);
+  }
+}
+
+/* Optional personalized name */
+
+if (PERSON_NAME.trim()) {
+  document.querySelector(".intro-card h2").textContent =
+    "Hey, " + PERSON_NAME.trim() + "! 🌸";
+  document.title = "A Jar Full of " + PERSON_NAME.trim() + " ♡";
+}
+
+/* Toast helper for future custom interactions */
+
+let toastTimeout;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2600);
+}
+</script>
+</body>
+</html>

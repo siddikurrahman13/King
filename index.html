@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamHub - Watch Movies</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: #fff; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: #1e293b; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #e11d48; }
+        .search-box input { padding: 8px 12px; border-radius: 4px; border: none; outline: none; }
+        
+        .container { padding: 2rem 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; margin-top: 1rem; }
+        .card { background: #1e293b; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+        .card:hover { transform: scale(1.05); }
+        .card img { width: 100%; height: 240px; object-fit: cover; }
+        .card-title { padding: 10px; font-size: 0.9rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* Modal Video Player */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .modal-content { position: relative; width: 80%; max-width: 900px; aspect-ratio: 16/9; }
+        .close-btn { position: absolute; top: -40px; right: 0; color: #fff; font-size: 30px; cursor: pointer; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">StreamHub</div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search movies..." onkeyup="searchMovies()">
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Trending Movies</h2>
+        <div class="grid" id="movieGrid"></div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePlayer()">&times;</span>
+            <iframe id="playerIframe" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = '5e8ec2aa21a60c60a6884ecce3af4418'; // তোমার TMDB API Key এখানে বসানো হলো
+        const movieGrid = document.getElementById('movieGrid');
+
+        // ১. পপুলার মুভি লোড করা
+        async function fetchTrending() {
+            const res = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`);
+            const data = await res.json();
+            displayMovies(data.results);
+        }
+
+        // ২. কার্ড রেন্ডার করা
+        function displayMovies(movies) {
+            movieGrid.innerHTML = movies.map(movie => `
+                <div class="card" onclick="playMovie(${movie.id})">
+                    <img src="https://image.tmdb.org/t5/p/w500${movie.poster_path}" alt="${movie.title}">
+                    <div class="card-title">${movie.title}</div>
+                </div>
+            `).join('');
+        }
+
+        // ৩. ফ্রি প্লেয়ার সোর্স কানেক্ট করা (vidsrc.to)
+        function playMovie(id) {
+            const embedUrl = `https://vidsrc.to/embed/movie/${id}`;
+            document.getElementById('playerIframe').src = embedUrl;
+            document.getElementById('videoModal').style.display = 'flex';
+        }
+
+        function closePlayer() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('playerIframe').src = '';
+        }
+
+        fetchTrending();
+    </script>
+</body>
+</html>
